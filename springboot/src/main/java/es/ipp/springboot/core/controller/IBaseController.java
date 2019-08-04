@@ -1,6 +1,6 @@
 package es.ipp.springboot.core.controller;
 
-import java.lang.reflect.ParameterizedType;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -16,52 +16,38 @@ import es.ipp.springboot.entity.IBaseEntity;
 public interface IBaseController<T extends IBaseEntity<PK>, PK> {
 
 	/**
-	 * Devuelve el tipo de clase de la entidad principal.
+	 * Devuelve una respuesta con un listado de entidades.
 	 * 
-	 * @return Class<E>
+	 * @param params Mapa de parámetros con una clave identificadora y un objeto. El
+	 *               mapa contendrá filtros, orderBys, la propia entidad si fuese
+	 *               necesario (en formato JSON, el método ya se ocupa de
+	 *               transformarla)...
+	 * @return ResponseEntity<List<T>>
 	 */
-	@SuppressWarnings("unchecked")
-	default Class<T> getEntityClass() {
-		return (Class<T>) ((ParameterizedType) this.getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
-	}
+	ResponseEntity<List<T>> find(LinkedHashMap<String, Object> params);
 
 	/**
-	 * Busca todas las entidades.
+	 * Devuelve una entidad por su clave principal.
 	 * 
-	 * @return T
+	 * @param id
+	 * @return ResponseEntity<T>
 	 */
-	List<T> findAll();
+	ResponseEntity<T> findById(PK id);
 
 	/**
 	 * Crea una entidad.
 	 * 
-	 * @param entity
-	 * @return T
+	 * @param jsonEntity Entidad en formato JSON.
+	 * @return ResponseEntity<T>
 	 */
-	T create(T entity);
+	ResponseEntity<T> createEntity(String jsonEntity);
 
 	/**
-	 * Modifica una entidad.
+	 * Actualizar una entidad.
 	 * 
-	 * @param entity
-	 * @return T
+	 * @param jsonEntity Entidad en formato JSON.
+	 * @return ResponseEntity<T>
 	 */
-	T update(PK id, T entity);
-
-	/**
-	 * Busca por id.
-	 * 
-	 * @param id
-	 * @return T
-	 */
-	T findById(PK id);
-
-	/**
-	 * Elimina una entidad.
-	 * 
-	 * @param id
-	 * @return ResponseEntity<?>
-	 */
-	ResponseEntity<?> delete(PK id);
+	ResponseEntity<T> updateEntity(String jsonEntity);
 
 }
