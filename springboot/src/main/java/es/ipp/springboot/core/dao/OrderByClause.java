@@ -20,7 +20,7 @@ public class OrderByClause implements Serializable {
 	 */
 	private String campo;
 	/**
-	 * Tipo de orden seg�n enumerado.
+	 * Tipo de orden según enumerado.
 	 */
 	private EnumOrderByTypes tipoOrden;
 	/**

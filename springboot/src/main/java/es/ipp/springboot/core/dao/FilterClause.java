@@ -22,12 +22,12 @@ public class FilterClause implements Serializable {
 	 */
 	private String campo;
 	/**
-	 * Tipo de filtro seg�n enumerado.
+	 * Tipo de filtro según enumerado.
 	 */
 	private EnumFilterTypes tipoFiltro;
 	/**
-	 * Tipo de operador para enlazar varios filtros seg�n enumerado. Por defecto
-	 * ser� AND.
+	 * Tipo de operador para enlazar varios filtros según enumerado. Por defecto
+	 * será AND.
 	 */
 	private EnumOperatorTypes tipoOperador;
 	/**
@@ -36,12 +36,12 @@ public class FilterClause implements Serializable {
 	 */
 	private Object[] filters;
 	/**
-	 * Determina el n�mero de par�ntesis que tendr� delante el filtro. Uno por
+	 * Determina el número de paréntesis que tendrá delante el filtro. Uno por
 	 * defecto.
 	 */
 	private int numeroParentesisDelante;
 	/**
-	 * Determina el n�mero de par�ntesis que tendr� detr�s el filtro. Uno por
+	 * Determina el número de par�ntesis que tendrá detrás el filtro. Uno por
 	 * defecto.
 	 */
 	private int numeroParentesisDetras;
