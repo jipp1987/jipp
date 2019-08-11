@@ -2,7 +2,6 @@ package es.ipp.springboot.core.controller.impl;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +18,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.ipp.springboot.core.controller.IBaseController;
+import es.ipp.springboot.core.controller.PostRequestEntity;
 import es.ipp.springboot.core.exception.AppException;
 import es.ipp.springboot.core.service.IBaseService;
 import es.ipp.springboot.entity.IBaseEntity;
@@ -83,9 +83,10 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 
 	@Override
 	@PostMapping(path = "/find", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<List<T>> find(@RequestBody LinkedHashMap<String, Object> params) {
-		// TODO Resolver filtros, orderBys... enviados en RequestBody
-		List<T> list = this.mainService.findAll(null);
+	public ResponseEntity<List<T>> find(@RequestBody PostRequestEntity postRequestEntity) {
+		List<T> list = this.mainService.findByFilteredQuery(postRequestEntity.getFilters(),
+				postRequestEntity.getJoins(), postRequestEntity.getOrder(), postRequestEntity.getGroupBys(),
+				postRequestEntity.getLimits());
 		return new ResponseEntity<List<T>>(list, HttpStatus.OK);
 	}
 

@@ -1,5 +1,7 @@
 package es.ipp.springboot.core.dao;
 
+import java.io.Serializable;
+
 import es.ipp.springboot.core.dao.constants.EnumOrderByTypes;
 
 /**
@@ -8,8 +10,10 @@ import es.ipp.springboot.core.dao.constants.EnumOrderByTypes;
  * @author ignacio
  *
  */
-public class OrderByClause {
+public class OrderByClause implements Serializable {
 
+	private static final long serialVersionUID = -7867361071177903799L;
+	
 	// CAMPOS
 	/**
 	 * Campos por el que se va a ordenar.

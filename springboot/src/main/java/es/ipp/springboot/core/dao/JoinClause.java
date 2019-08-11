@@ -1,5 +1,7 @@
 package es.ipp.springboot.core.dao;
 
+import java.io.Serializable;
+
 import es.ipp.springboot.core.dao.constants.EnumJoinTypes;
 
 /**
@@ -8,8 +10,10 @@ import es.ipp.springboot.core.dao.constants.EnumJoinTypes;
  * @author ignacio
  *
  */
-public class JoinClause {
+public class JoinClause implements Serializable {
 
+	private static final long serialVersionUID = 7742090964447127269L;
+	
 	// CAMPOS
 	/**
 	 * Campo que relaciona la tabla principal con la subordinada.

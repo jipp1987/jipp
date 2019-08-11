@@ -1,6 +1,5 @@
 package es.ipp.springboot.core.controller;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,12 @@ public interface IBaseController<T extends IBaseEntity<PK>, PK> {
 	/**
 	 * Devuelve una respuesta con un listado de entidades.
 	 * 
-	 * @param params Mapa de parámetros con una clave identificadora y un objeto. El
-	 *               mapa contendrá filtros, orderBys, la propia entidad si fuese
-	 *               necesario (en formato JSON, el método ya se ocupa de
-	 *               transformarla)...
+	 * @param postRequestEntity Objeto con datos necesarios para las consultas hacia
+	 *                          la base de datos. También puede contener un objeto
+	 *                          genérico con un dato enviado desde el cliente.
 	 * @return ResponseEntity<List<T>>
 	 */
-	ResponseEntity<List<T>> find(LinkedHashMap<String, Object> params);
+	ResponseEntity<List<T>> find(PostRequestEntity postRequestEntity);
 
 	/**
 	 * Devuelve una entidad por su clave principal.

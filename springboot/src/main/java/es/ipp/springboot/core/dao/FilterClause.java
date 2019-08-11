@@ -1,5 +1,6 @@
 package es.ipp.springboot.core.dao;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import es.ipp.springboot.core.dao.constants.EnumFilterTypes;
@@ -11,8 +12,10 @@ import es.ipp.springboot.core.dao.constants.EnumOperatorTypes;
  * @author ignacio
  *
  */
-public class FilterClause {
+public class FilterClause implements Serializable {
 
+	private static final long serialVersionUID = 591682896844125650L;
+	
 	// CAMPOS
 	/**
 	 * Campo por el que se quiere filtrar.

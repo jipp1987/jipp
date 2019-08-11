@@ -1,13 +1,17 @@
 package es.ipp.springboot.core.dao;
 
+import java.io.Serializable;
+
 /**
  * Cl�usulas GROUP BY para consultas HQL.
  * 
  * @author ignacio
  *
  */
-public class GroupByClause {
+public class GroupByClause implements Serializable {
 
+	private static final long serialVersionUID = 7428515130461760483L;
+	
 	// ATRIBUTOS
 	/**
 	 * Campo por el que se va a agrupar.

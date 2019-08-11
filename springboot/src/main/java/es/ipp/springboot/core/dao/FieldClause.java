@@ -1,13 +1,17 @@
 package es.ipp.springboot.core.dao;
 
+import java.io.Serializable;
+
 /**
  * Cláusula para seleccionar un campo en concreto de una entidad.
  * 
  * @author ignacio
  *
  */
-public class FieldClause {
+public class FieldClause implements Serializable {
 
+	private static final long serialVersionUID = 1029164908024175169L;
+	
 	// ATRIBUTOS
 	/**
 	 * Campo a seleccionar.
