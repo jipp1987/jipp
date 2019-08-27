@@ -41,7 +41,7 @@ public class FilterClause implements Serializable {
 	 */
 	private int numeroParentesisDelante;
 	/**
-	 * Determina el número de par�ntesis que tendrá detrás el filtro. Uno por
+	 * Determina el número de paréntesis que tendrá detrás el filtro. Uno por
 	 * defecto.
 	 */
 	private int numeroParentesisDetras;
@@ -52,7 +52,8 @@ public class FilterClause implements Serializable {
 
 	// CONSTRUCTOR
 	/**
-	 * Constructor por defecto para los envíos desde el front-end.
+	 * Constructor por defecto: se necesita para que ObjectMapper de Jackson sea
+	 * capaz de instanciar el objeto al llegar como parámetro desde el frontend.
 	 */
 	public FilterClause() {
 		this.tipoOperador = EnumOperatorTypes.AND;

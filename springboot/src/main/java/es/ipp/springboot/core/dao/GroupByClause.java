@@ -23,6 +23,10 @@ public class GroupByClause implements Serializable {
 	private String aliasTabla;
 
 	// CONSTRUCTOR
+	/**
+	 * Constructor por defecto: se necesita para que ObjectMapper de Jackson sea
+	 * capaz de instanciar el objeto al llegar como parámetro desde el frontend.
+	 */
 	public GroupByClause() {
 
 	}

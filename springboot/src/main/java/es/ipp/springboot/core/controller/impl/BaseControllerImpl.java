@@ -2,13 +2,16 @@ package es.ipp.springboot.core.controller.impl;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,10 +78,10 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 	 * get para estas cosas, post es más seguro.
 	 */
 	@Override
-	@GetMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<T> findById(@PathVariable PK id) {
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<T> findById(@PathVariable(value = "id") PK id) {
 		T entity = this.mainService.findById(id, null);
-		return new ResponseEntity<T>(entity, HttpStatus.OK);
+		return ResponseEntity.ok().body(entity);
 	}
 
 	@Override
@@ -118,6 +121,22 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 			LOG.error(e.getLocalizedMessage(), e);
 			return new ResponseEntity<T>(entity, HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@Override
+	@DeleteMapping("/{id}")
+	public Map<String, Boolean> deleteEntity(@PathVariable(value = "id") PK id) {
+		Map<String, Boolean> response = new HashMap<>();
+		try {
+			T entity = this.mainService.findById(id, null);
+			this.mainService.delete(entity);
+			response.put("deleted", true);
+		} catch (AppException e) {
+			LOG.error(e.getLocalizedMessage(), e);
+			response.put("deleted", false);
+		}
+
+		return response;
 	}
 
 }

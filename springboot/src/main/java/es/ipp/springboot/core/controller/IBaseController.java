@@ -1,6 +1,7 @@
 package es.ipp.springboot.core.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -47,5 +48,14 @@ public interface IBaseController<T extends IBaseEntity<PK>, PK> {
 	 * @return ResponseEntity<T>
 	 */
 	ResponseEntity<T> updateEntity(String jsonEntity);
+
+	/**
+	 * Elimina una entidad.
+	 * 
+	 * @param id
+	 * @return Map<String, Boolean> Palabra "deleted" y boolean indicando si se ha
+	 *         eliminado o no.
+	 */
+	Map<String, Boolean> deleteEntity(PK id);
 
 }

@@ -48,6 +48,8 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Esto lo necesito para que el war desplegado en el tomcat funcione correctamente. -->
+		<!-- En modo local no es necesario en principio. -->
 		<dependency>
 	      <groupId>org.hibernate</groupId>
 	      <artifactId>hibernate-validator</artifactId>

@@ -11,14 +11,14 @@ import java.io.Serializable;
 public class FieldClause implements Serializable {
 
 	private static final long serialVersionUID = 1029164908024175169L;
-	
+
 	// ATRIBUTOS
 	/**
 	 * Campo a seleccionar.
 	 */
 	private String campo;
 	/**
-	 * A�adir cl�usula DISTINCT.
+	 * Añadir cláusula DISTINCT.
 	 */
 	private boolean distinct;
 	/**
@@ -27,6 +27,14 @@ public class FieldClause implements Serializable {
 	private String aliasTabla;
 
 	// CONSTRUCTOR
+	/**
+	 * Constructor por defecto: se necesita para que ObjectMapper de Jackson sea
+	 * capaz de instanciar el objeto al llegar como parámetro desde el frontend.
+	 */
+	public FieldClause() {
+
+	}
+
 	/**
 	 * 
 	 * @param campo
