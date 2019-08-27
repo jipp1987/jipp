@@ -15,7 +15,7 @@ import es.ipp.springboot.core.dao.constants.EnumOperatorTypes;
 public class FilterClause implements Serializable {
 
 	private static final long serialVersionUID = 591682896844125650L;
-	
+
 	// CAMPOS
 	/**
 	 * Campo por el que se quiere filtrar.
@@ -51,6 +51,17 @@ public class FilterClause implements Serializable {
 	private String aliasTabla;
 
 	// CONSTRUCTOR
+	/**
+	 * Constructor por defecto para los envíos desde el front-end.
+	 */
+	public FilterClause() {
+		this.tipoOperador = EnumOperatorTypes.AND;
+		this.filters = new Object[1];
+		this.numeroParentesisDelante = 1;
+		this.numeroParentesisDetras = 1;
+		this.aliasTabla = null;
+	}
+
 	/**
 	 * Se emplea para hacer consultas normales, con un sólo par�metro para comparar
 	 * (LIKE, <>, =...)

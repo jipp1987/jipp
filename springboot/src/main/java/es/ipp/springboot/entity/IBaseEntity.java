@@ -1,8 +1,13 @@
 package es.ipp.springboot.entity;
 
+import java.io.IOException;
 import java.io.Serializable;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Interfaz que deben implementar los modelos de la aplicación.
@@ -27,29 +32,41 @@ public interface IBaseEntity<PK> extends Serializable {
 	boolean isPKExists();
 
 	/**
-	 * Devuelve una copia profunda del objeto. Crea un objeto Gson en la propia
-	 * función.
+	 * Devuelve una copia profunda del objeto. Crea un objeto ObjectMapper en la
+	 * propia función.
 	 * 
 	 * @return IBaseEntity<PK>
+	 * @throws IOException
+	 * @throws JsonProcessingException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
 	@SuppressWarnings("unchecked")
-	default IBaseEntity<PK> deepCopy() {
-		Gson gson = new Gson();
-		IBaseEntity<PK> deepCopy = gson.fromJson(gson.toJson(this), this.getClass());
-		gson = null;
+	default IBaseEntity<PK> deepCopy()
+			throws JsonParseException, JsonMappingException, JsonProcessingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+		mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, true);
+
+		IBaseEntity<PK> deepCopy = mapper.readValue(mapper.writeValueAsString(this), this.getClass());
+		mapper = null;
 		return deepCopy;
 	}
 
 	/**
-	 * Devuelve una copia profunda del objeto. Espera un objecto Gson para realizar
-	 * la copia.
+	 * Devuelve una copia profunda del objeto. Espera un objecto ObjectMapper para
+	 * realizar la copia.
 	 * 
-	 * @param gson
+	 * @param mapper
 	 * @return IBaseEntity<PK>
+	 * @throws IOException
+	 * @throws JsonProcessingException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
 	@SuppressWarnings("unchecked")
-	default IBaseEntity<PK> deepCopy(Gson gson) {
-		IBaseEntity<PK> deepCopy = gson.fromJson(gson.toJson(this), this.getClass());
+	default IBaseEntity<PK> deepCopy(ObjectMapper mapper) throws JsonParseException, JsonMappingException, JsonProcessingException, IOException {
+		IBaseEntity<PK> deepCopy = mapper.readValue(mapper.writeValueAsString(this), this.getClass());
 		return deepCopy;
 	}
 

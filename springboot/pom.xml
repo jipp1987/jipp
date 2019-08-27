@@ -60,11 +60,6 @@
 	      </exclusions>
 	  </dependency>
 
-		<!-- Clone -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

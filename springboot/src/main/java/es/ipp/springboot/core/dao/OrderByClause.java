@@ -13,7 +13,7 @@ import es.ipp.springboot.core.dao.constants.EnumOrderByTypes;
 public class OrderByClause implements Serializable {
 
 	private static final long serialVersionUID = -7867361071177903799L;
-	
+
 	// CAMPOS
 	/**
 	 * Campos por el que se va a ordenar.
@@ -29,6 +29,10 @@ public class OrderByClause implements Serializable {
 	private String aliasTabla;
 
 	// CONSTRUCTOR
+	public OrderByClause() {
+		
+	}
+
 	public OrderByClause(String campo, EnumOrderByTypes tipoOrden) {
 		this.campo = campo;
 		this.tipoOrden = tipoOrden;

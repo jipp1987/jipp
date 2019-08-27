@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class GroupByClause implements Serializable {
 
 	private static final long serialVersionUID = 7428515130461760483L;
-	
+
 	// ATRIBUTOS
 	/**
 	 * Campo por el que se va a agrupar.
@@ -23,6 +23,10 @@ public class GroupByClause implements Serializable {
 	private String aliasTabla;
 
 	// CONSTRUCTOR
+	public GroupByClause() {
+
+	}
+
 	/**
 	 * 
 	 * @param campo
