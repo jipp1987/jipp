@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.ipp.springboot.core.utils.JsonUtils;
 
 /**
  * Interfaz que deben implementar los modelos de la aplicación.
@@ -32,8 +32,7 @@ public interface IBaseEntity<PK> extends Serializable {
 	boolean isPKExists();
 
 	/**
-	 * Devuelve una copia profunda del objeto. Crea un objeto ObjectMapper en la
-	 * propia función.
+	 * Devuelve una copia profunda del objeto.
 	 * 
 	 * @return IBaseEntity<PK>
 	 * @throws IOException
@@ -44,30 +43,7 @@ public interface IBaseEntity<PK> extends Serializable {
 	@SuppressWarnings("unchecked")
 	default IBaseEntity<PK> deepCopy()
 			throws JsonParseException, JsonMappingException, JsonProcessingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-		mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, true);
-
-		IBaseEntity<PK> deepCopy = mapper.readValue(mapper.writeValueAsString(this), this.getClass());
-		mapper = null;
-		return deepCopy;
-	}
-
-	/**
-	 * Devuelve una copia profunda del objeto. Espera un objecto ObjectMapper para
-	 * realizar la copia.
-	 * 
-	 * @param mapper
-	 * @return IBaseEntity<PK>
-	 * @throws IOException
-	 * @throws JsonProcessingException
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
-	 */
-	@SuppressWarnings("unchecked")
-	default IBaseEntity<PK> deepCopy(ObjectMapper mapper) throws JsonParseException, JsonMappingException, JsonProcessingException, IOException {
-		IBaseEntity<PK> deepCopy = mapper.readValue(mapper.writeValueAsString(this), this.getClass());
-		return deepCopy;
+		return JsonUtils.getInstance().readValue(JsonUtils.getInstance().writeValueAsString(this), this.getClass());
 	}
 
 }

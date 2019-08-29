@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.ipp.springboot.core.controller.IBaseController;
 import es.ipp.springboot.core.controller.PostRequestEntity;
 import es.ipp.springboot.core.exception.AppException;
 import es.ipp.springboot.core.service.IBaseService;
+import es.ipp.springboot.core.utils.JsonUtils;
 import es.ipp.springboot.entity.IBaseEntity;
 
 /**
@@ -57,18 +55,9 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 	@Autowired
 	protected SERVICE mainService;
 
-	/**
-	 * Objeto para convertir y transformar datos a/desde JSON.
-	 */
-	protected ObjectMapper objectMapper;
-
 	// CONSTRUCTOR
 	public BaseControllerImpl() {
 		super();
-		// Inicializar y configurar el objectMapper
-		this.objectMapper = new ObjectMapper();
-		this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-		this.objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, true);
 	}
 
 	// FUNCIONES
@@ -99,7 +88,7 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 		T entity = null;
 		try {
 			// Transformar el objeto desde JSON
-			entity = this.objectMapper.readValue(jsonEntity, this.entityClass);
+			entity = JsonUtils.getInstance().readValue(jsonEntity, this.entityClass);
 			this.mainService.create(entity);
 			return new ResponseEntity<T>(entity, HttpStatus.OK);
 		} catch (IOException | AppException e) {
@@ -114,7 +103,7 @@ public abstract class BaseControllerImpl<T extends IBaseEntity<PK>, PK, SERVICE 
 		T entity = null;
 		try {
 			// Transformar el objeto desde JSON
-			entity = this.objectMapper.readValue(jsonEntity, this.entityClass);
+			entity = JsonUtils.getInstance().readValue(jsonEntity, this.entityClass);
 			this.mainService.update(entity);
 			return new ResponseEntity<T>(entity, HttpStatus.OK);
 		} catch (IOException | AppException e) {
